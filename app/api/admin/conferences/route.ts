@@ -1,6 +1,7 @@
 import { addConference, deleteConference } from "@/lib/db-queries"
 import { checkAdminAPI, handleAdminError } from "@/lib/api-auth"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: NextRequest) {
     try {
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Failed to add conference" }, { status: 500 })
         }
 
+        revalidatePath("/profiles")
         return NextResponse.json(newRecord, { status: 201 })
     } catch (error) {
         return handleAdminError(error)
@@ -38,6 +40,7 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: "Failed to delete conference" }, { status: 500 })
         }
 
+        revalidatePath("/profiles")
         return NextResponse.json({ success: true })
     } catch (error) {
         return handleAdminError(error)

@@ -1,6 +1,7 @@
 import { addPublication, deletePublication, updatePublication } from "@/lib/db-queries"
 import { checkAdminAPI, handleAdminError } from "@/lib/api-auth"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Failed to add publication" }, { status: 500 })
     }
 
+    revalidatePath("/publications")
     return NextResponse.json(newPub, { status: 201 })
   } catch (error) {
     return handleAdminError(error)
@@ -36,6 +38,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Failed to update publication" }, { status: 500 })
     }
 
+    revalidatePath("/publications")
     return NextResponse.json({ success: true, ...body })
   } catch (error) {
     return handleAdminError(error)
@@ -60,6 +63,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Failed to delete publication" }, { status: 500 })
     }
 
+    revalidatePath("/publications")
     return NextResponse.json({ success: true })
   } catch (error) {
     return handleAdminError(error)

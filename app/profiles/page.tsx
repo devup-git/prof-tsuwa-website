@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ExternalLink, CheckCircle, AlertCircle } from "lucide-react"
 import Image from "next/image"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Academic Profiles | Dr. John Tor Tsuwa",
   description: "Links to academic and professional profiles across research platforms and professional networks",

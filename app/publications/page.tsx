@@ -1,6 +1,8 @@
 import { PublicationsClient } from "./publications-client"
 import { getPublications } from "@/lib/db-queries"
 
+export const dynamic = "force-dynamic"
+
 export const metadata = {
   title: "Publications | Prof. John Tor Tsuwa",
   description:

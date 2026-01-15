@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ExternalLink } from "lucide-react"
+import { BooksClient } from "./books-client"
 import { getBooks } from "@/lib/db-queries"
+
+export const dynamic = "force-dynamic"
 import Image from "next/image"
 import type { Metadata } from "next"
 
