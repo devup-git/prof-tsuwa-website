@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and login areas
+Disallow: /admin/
+Disallow: /admin/login
+
+# Sitemap (Update this URL with your actual production domain)
+Sitemap: https://YOUR-PRODUCTION-DOMAIN.com/sitemap.xml
