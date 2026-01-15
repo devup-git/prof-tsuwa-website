@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trash2, UserPlus, GraduationCap } from "lucide-react"
+import { toast } from "sonner"
 
 interface Supervisee {
     id: string
@@ -69,11 +70,14 @@ export default function SupervisionManagerClient({ initialSupervisees }: Supervi
                     institution: "Federal University of Makurdi",
                 })
                 setFormOpen(false)
+                toast.success("Student record added")
             } else {
                 console.error("Failed to add supervisee")
+                toast.error("Failed to add student record")
             }
         } catch (error) {
             console.error("Error adding supervisee:", error)
+            toast.error("An error occurred while adding")
         } finally {
             setIsLoading(false)
         }
@@ -89,11 +93,14 @@ export default function SupervisionManagerClient({ initialSupervisees }: Supervi
 
             if (response.ok) {
                 setSupervisees(supervisees.filter((s) => s.id !== id))
+                toast.success("Record deleted")
             } else {
                 console.error("Failed to delete supervisee")
+                toast.error("Failed to delete student record")
             }
         } catch (error) {
             console.error("Error deleting supervisee:", error)
+            toast.error("Error deleting record")
         }
     }
 

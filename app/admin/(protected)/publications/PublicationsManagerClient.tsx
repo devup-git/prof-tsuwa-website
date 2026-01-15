@@ -86,10 +86,13 @@ export default function PublicationsManagerClient({ initialPublications }: Publi
 
     const url = "/api/admin/publications"
     const method = editingId ? "PUT" : "POST"
-    const body = {
+    const body: any = {
       ...formData,
       authors: formData.authors.split(",").map((a) => a.trim()),
-      id: editingId, // Include ID for updates
+    }
+
+    if (editingId) {
+      body.id = editingId
     }
 
     try {

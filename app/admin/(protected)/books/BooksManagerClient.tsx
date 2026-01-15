@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 import FileUploader from "@/components/admin/FileUploader"
+import { toast } from "sonner"
 
 interface Book {
     id: string
@@ -75,12 +76,14 @@ export default function BooksManagerClient({ initialBooks }: BooksManagerClientP
                     description: "",
                 })
                 setFormOpen(false)
+                toast.success("Book added successfully")
             } else {
                 console.error("Failed to add book")
-                // Show error toast in future
+                toast.error("Failed to add book")
             }
         } catch (error) {
             console.error("Error adding book:", error)
+            toast.error("An error occurred")
         } finally {
             setIsLoading(false)
         }
@@ -96,11 +99,14 @@ export default function BooksManagerClient({ initialBooks }: BooksManagerClientP
 
             if (response.ok) {
                 setBooks(books.filter((b) => b.id !== id))
+                toast.success("Book deleted")
             } else {
                 console.error("Failed to delete book")
+                toast.error("Failed to delete book")
             }
         } catch (error) {
             console.error("Error deleting book:", error)
+            toast.error("Error deleting book")
         }
     }
 

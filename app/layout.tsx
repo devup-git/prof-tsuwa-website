@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { siteConfig } from "@/config/site"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   title: "Prof. John Tor Tsuwa | Political Science Scholar & Governance Expert",

@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trash2, Mic2 } from "lucide-react"
+import { toast } from "sonner"
 
 interface Conference {
     id: string
@@ -62,11 +63,14 @@ export default function ConferencesManagerClient({ initialConferences }: Confere
                     paper_title: "",
                 })
                 setFormOpen(false)
+                toast.success("Conference record added")
             } else {
                 console.error("Failed to add conference")
+                toast.error("Failed to add conference")
             }
         } catch (error) {
             console.error("Error adding conference:", error)
+            toast.error("Error adding conference")
         } finally {
             setIsLoading(false)
         }
@@ -82,11 +86,14 @@ export default function ConferencesManagerClient({ initialConferences }: Confere
 
             if (response.ok) {
                 setConferences(conferences.filter((c) => c.id !== id))
+                toast.success("Record deleted")
             } else {
                 console.error("Failed to delete conference")
+                toast.error("Failed to delete record")
             }
         } catch (error) {
             console.error("Error deleting conference:", error)
+            toast.error("Error deleting record")
         }
     }
 
