@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Edit2, Trash2 } from "lucide-react"
 import FileUploader from "@/components/admin/FileUploader"
+import { toast } from "sonner"
 
 interface Publication {
   id: string
@@ -102,17 +103,23 @@ export default function PublicationsManagerClient({ initialPublications }: Publi
         if (editingId) {
           // Update local state
           setPublications(prev => prev.map(p => p.id === editingId ? { ...p, ...body, id: p.id } : p))
+          toast.success("Publication updated successfully")
         } else {
           // Add new
           const newPub = await response.json()
           setPublications([newPub, ...publications])
+          toast.success("Publication added successfully")
         }
         resetForm()
       } else {
-        console.error("Failed to save publication")
+        const errorData = await response.json().catch(() => ({}))
+        const errorMessage = errorData.error || "Failed to save publication"
+        console.error("Failed to save publication:", errorMessage)
+        toast.error(errorMessage)
       }
     } catch (error) {
       console.error("[v0] Error saving publication:", error)
+      toast.error("An unexpected error occurred")
     }
   }
 
@@ -123,9 +130,13 @@ export default function PublicationsManagerClient({ initialPublications }: Publi
       const response = await fetch(`/api/admin/publications?id=${id}`, { method: "DELETE" })
       if (response.ok) {
         setPublications(prev => prev.filter(p => p.id !== id))
+        toast.success("Publication deleted")
+      } else {
+        toast.error("Failed to delete publication")
       }
     } catch (error) {
       console.error("Error deleting:", error)
+      toast.error("Error deleting publication")
     }
   }
 

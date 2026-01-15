@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { createBrowserClient } from "@supabase/ssr"
+import { getSupabaseClient } from "@/lib/supabase-client"
 import { Button } from "@/components/ui/button"
 import { Upload, X, Loader2, FileText, CheckCircle } from "lucide-react"
+import { toast } from "sonner"
 
 interface FileUploaderProps {
     bucket: "cms_docs" | "cms_images"
@@ -23,10 +24,7 @@ export default function FileUploader({
     const [isUploading, setIsUploading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
+    const supabase = getSupabaseClient()
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
