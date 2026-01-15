@@ -8,11 +8,23 @@ export async function middleware(request: NextRequest) {
     },
   })
 
+  // Check for required environment variables
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error("Middleware: Missing Supabase environment variables")
+    return new NextResponse(
+      JSON.stringify({ error: "Configuration Error: Missing Supabase Environment Variables" }),
+      { status: 500, headers: { "content-type": "application/json" } },
+    )
+  }
+
   // The issue was calling getSetCookie() which doesn't exist; instead we properly
   // serialize cookies using the correct Supabase SSR pattern with NextRequest
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
