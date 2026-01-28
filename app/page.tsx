@@ -3,8 +3,20 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ImageCarousel } from "@/components/image-carousel"
 import { Footer } from "@/components/footer"
+import { getPublications, getCourses } from "@/lib/db-queries"
 
-export default function Home() {
+export const dynamic = "force-dynamic"
+
+export default async function Home() {
+  const publications = await getPublications()
+  const courses = await getCourses()
+  const publicationsCount = publications.length
+  const coursesCount = courses.length
+
+  // Assuming start year is 1998 (25+ years as of 2023/2024)
+  const entryYear = 1998
+  const currentYear = new Date().getFullYear()
+  const yearsExperience = currentYear - entryYear
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-1">
@@ -47,11 +59,11 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold">25+</div>
+                <div className="text-4xl md:text-5xl font-bold">{yearsExperience}+</div>
                 <p className="text-primary-foreground/80 mt-2">Years of Experience</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold">50+</div>
+                <div className="text-4xl md:text-5xl font-bold">{publicationsCount}+</div>
                 <p className="text-primary-foreground/80 mt-2">Research Publications</p>
               </div>
               <div className="text-center">
@@ -59,7 +71,7 @@ export default function Home() {
                 <p className="text-primary-foreground/80 mt-2">Organizations Consulted</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold">15+</div>
+                <div className="text-4xl md:text-5xl font-bold">{coursesCount}+</div>
                 <p className="text-primary-foreground/80 mt-2">Courses Designed</p>
               </div>
             </div>

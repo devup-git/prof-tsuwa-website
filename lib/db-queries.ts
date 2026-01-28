@@ -1,5 +1,5 @@
 import "server-only"
-import { getSupabaseServer } from "./supabase-server"
+import { getSupabaseServer, getSupabaseAdmin } from "./supabase-server"
 
 // Publications
 export async function getPublications() {
@@ -173,7 +173,7 @@ export async function getContactMessages(limit = 50) {
 
 // Add Publication
 export async function addPublication(publication: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { data, error } = await supabase.from("publications").insert([publication]).select()
 
   if (error) {
@@ -185,7 +185,7 @@ export async function addPublication(publication: any) {
 
 // Update Consultancy Lead Read Status
 export async function markLeadAsRead(leadId: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("consultancy_leads").update({ read: true }).eq("id", leadId)
 
   if (error) {
@@ -209,7 +209,7 @@ export async function getBooks() {
 }
 
 export async function addBook(book: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { data, error } = await supabase.from("books").insert([book]).select()
 
   if (error) {
@@ -220,7 +220,7 @@ export async function addBook(book: any) {
 }
 
 export async function deleteBook(id: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("books").delete().eq("id", id)
 
   if (error) {
@@ -248,7 +248,7 @@ export async function getAllStudentResources() {
 }
 
 export async function addStudentResource(resource: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { data, error } = await supabase.from("student_resources").insert([resource]).select()
 
   if (error) {
@@ -259,7 +259,7 @@ export async function addStudentResource(resource: any) {
 }
 
 export async function deleteStudentResource(id: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("student_resources").delete().eq("id", id)
 
   if (error) {
@@ -289,7 +289,7 @@ export async function getStudentSubmissions(limit = 100) {
 // --- PUBLICATIONS CRUD ---
 
 export async function updatePublication(id: string, updates: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("publications").update(updates).eq("id", id)
 
   if (error) {
@@ -300,7 +300,7 @@ export async function updatePublication(id: string, updates: any) {
 }
 
 export async function deletePublication(id: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("publications").delete().eq("id", id)
 
   if (error) {
@@ -313,7 +313,7 @@ export async function deletePublication(id: string) {
 // --- SUPERVISION (Supervisees) ---
 
 export async function addSupervisee(supervisee: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { data, error } = await supabase.from("supervisees").insert([supervisee]).select()
 
   if (error) {
@@ -324,7 +324,7 @@ export async function addSupervisee(supervisee: any) {
 }
 
 export async function deleteSupervisee(id: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("supervisees").delete().eq("id", id)
 
   if (error) {
@@ -337,7 +337,7 @@ export async function deleteSupervisee(id: string) {
 // --- CONFERENCES ---
 
 export async function addConference(conference: any) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { data, error } = await supabase.from("conferences").insert([conference]).select()
 
   if (error) {
@@ -348,11 +348,116 @@ export async function addConference(conference: any) {
 }
 
 export async function deleteConference(id: string) {
-  const supabase = await getSupabaseServer()
+  const supabase = await getSupabaseAdmin()
   const { error } = await supabase.from("conferences").delete().eq("id", id)
 
   if (error) {
     console.error("[v0] Error deleting conference:", error)
+    return false
+  }
+  return true
+}
+
+// --- RESEARCH PROJECTS ---
+
+export async function addResearchProject(project: any) {
+  const supabase = await getSupabaseAdmin()
+  const { data, error } = await supabase.from("research_projects").insert([project]).select()
+
+  if (error) {
+    console.error("[v0] Error adding research project:", error)
+    return null
+  }
+  return data?.[0] || null
+}
+
+export async function updateResearchProject(id: string, updates: any) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("research_projects").update(updates).eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error updating research project:", error)
+    return false
+  }
+  return true
+}
+
+export async function deleteResearchProject(id: string) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("research_projects").delete().eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error deleting research project:", error)
+    return false
+  }
+  return true
+}
+
+// --- RESEARCH GRANTS ---
+
+export async function addResearchGrant(grant: any) {
+  const supabase = await getSupabaseAdmin()
+  const { data, error } = await supabase.from("research_grants").insert([grant]).select()
+
+  if (error) {
+    console.error("[v0] Error adding research grant:", error)
+    return null
+  }
+  return data?.[0] || null
+}
+
+export async function updateResearchGrant(id: string, updates: any) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("research_grants").update(updates).eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error updating research grant:", error)
+    return false
+  }
+  return true
+}
+
+export async function deleteResearchGrant(id: string) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("research_grants").delete().eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error deleting research grant:", error)
+    return false
+  }
+  return true
+}
+
+// --- COURSES ---
+
+export async function addCourse(course: any) {
+  const supabase = await getSupabaseAdmin()
+  const { data, error } = await supabase.from("courses").insert([course]).select()
+
+  if (error) {
+    console.error("[v0] Error adding course:", error)
+    return null
+  }
+  return data?.[0] || null
+}
+
+export async function updateCourse(id: string, updates: any) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("courses").update(updates).eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error updating course:", error)
+    return false
+  }
+  return true
+}
+
+export async function deleteCourse(id: string) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("courses").delete().eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error deleting course:", error)
     return false
   }
   return true

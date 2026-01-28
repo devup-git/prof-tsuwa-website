@@ -16,6 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     revalidatePath("/publications")
+    revalidatePath("/admin/publications")
+    revalidatePath("/")
     return NextResponse.json(newPub, { status: 201 })
   } catch (error) {
     return handleAdminError(error)
@@ -39,6 +41,8 @@ export async function PUT(request: NextRequest) {
     }
 
     revalidatePath("/publications")
+    revalidatePath("/admin/publications")
+    revalidatePath("/")
     return NextResponse.json({ success: true, ...body })
   } catch (error) {
     return handleAdminError(error)
@@ -64,6 +68,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     revalidatePath("/publications")
+    revalidatePath("/admin/publications")
+    revalidatePath("/")
     return NextResponse.json({ success: true })
   } catch (error) {
     return handleAdminError(error)

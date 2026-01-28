@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Failed to add conference" }, { status: 500 })
         }
 
-        revalidatePath("/profiles")
+        revalidatePath("/supervision")
+        revalidatePath("/admin/conferences")
         return NextResponse.json(newRecord, { status: 201 })
     } catch (error) {
         return handleAdminError(error)
@@ -40,7 +41,7 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: "Failed to delete conference" }, { status: 500 })
         }
 
-        revalidatePath("/profiles")
+        revalidatePath("/supervision")
         return NextResponse.json({ success: true })
     } catch (error) {
         return handleAdminError(error)

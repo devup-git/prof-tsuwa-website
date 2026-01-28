@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
         }
 
         revalidatePath("/books")
+        revalidatePath("/admin/books")
         return NextResponse.json(newBook, { status: 201 })
     } catch (error) {
         return handleAdminError(error)
@@ -43,6 +44,7 @@ export async function DELETE(request: NextRequest) {
         }
 
         revalidatePath("/books")
+        revalidatePath("/admin/books")
         return NextResponse.json({ success: true })
     } catch (error) {
         return handleAdminError(error)

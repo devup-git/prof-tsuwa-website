@@ -5,6 +5,8 @@ export const metadata = {
     title: "Books Manager | Admin",
 }
 
+export const dynamic = "force-dynamic"
+
 export default async function BooksPage() {
     const books = await getBooks()
 

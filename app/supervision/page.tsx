@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+
+export const dynamic = "force-dynamic"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { getSupervisees, getConferences } from "@/lib/db-queries"
@@ -12,6 +14,16 @@ export default async function SupervisionPage() {
   const supervisees = await getSupervisees()
   const conferences = await getConferences()
 
+  // Calculate dynamic stats
+  const totalCount = supervisees.length
+  const completedCount = supervisees.filter(s => s.status === 'completed').length
+  const ongoingCount = supervisees.filter(s => s.status === 'ongoing').length
+
+  const phdCount = supervisees.filter(s => s.level.toLowerCase().includes('phd')).length
+  const mscCount = supervisees.filter(s => s.level.toLowerCase().includes('msc') || s.level.toLowerCase().includes('postgraduate')).length
+  const phdOngoing = supervisees.filter(s => s.level.toLowerCase().includes('phd') && s.status === 'ongoing').length
+  const mscOngoing = supervisees.filter((s) => (s.level.toLowerCase().includes('msc') || s.level.toLowerCase().includes('postgraduate')) && s.status === 'ongoing').length
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -19,9 +31,8 @@ export default async function SupervisionPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Student Supervision & Conferences</h1>
           <p className="text-xl text-foreground/80 leading-relaxed max-w-3xl">
-            Active engagement in graduate mentoring through supervision of 32+ postgraduate (MA and MSc) and 70+
-            undergraduate students since 2006 in Peace and Conflict Studies, International Relations, and Public
-            Administration. Currently supervising 4 PhD and 5 MSc students. Regular participation in national and
+            Active engagement in graduate mentoring through supervision of {totalCount} postgraduate students since 2006.
+            Currently supervising {phdOngoing} PhD and {mscOngoing} MSc students. Regular participation in national and
             international conferences on political science, peace studies, governance, and security.
           </p>
         </div>

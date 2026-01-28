@@ -16,14 +16,24 @@ interface Resource {
   link_type?: string | null
 }
 
-interface ClientStudentResourcesPageProps {
-  dbResources: Resource[]
+interface Course {
+  id: string
+  code: string
+  title: string
 }
 
-export default function ClientStudentResourcesPage({ dbResources }: ClientStudentResourcesPageProps) {
+interface ClientStudentResourcesPageProps {
+  dbResources: Resource[]
+  courses: Course[]
+}
+
+export default function ClientStudentResourcesPage({ dbResources, courses }: ClientStudentResourcesPageProps) {
   // Separate virtual class links from regular resources
   const virtualClasses = dbResources.filter((r) => r.virtual_class_link)
   const regularResources = dbResources.filter((r) => !r.virtual_class_link)
+
+  // Get available assignments from resources
+  const availableAssignments = dbResources.filter(r => r.category === 'assignments' || r.category === 'questions')
 
   // Group regular resources by category
   const resourcesByCategory = regularResources.reduce(
@@ -115,8 +125,6 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
         </section>
       )}
 
-
-
       {/* Course Resources */}
       <section className="py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +134,7 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
             <div className="space-y-16">
               {Object.entries(resourcesByCategory).map(([category, items]) => (
                 <div key={category}>
-                  <h3 className="text-2xl font-bold text-primary mb-8">{category}</h3>
+                  <h3 className="text-2xl font-bold text-primary mb-8 capitalize">{category.replace('_', ' ')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {items.map((item) => (
                       <Card key={item.id} className="border-border hover:shadow-lg transition-shadow">
@@ -144,13 +152,13 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col gap-4">
                             {item.description && <p className="text-xs text-muted-foreground">{item.description}</p>}
                             {item.file_url && (
                               <Button
                                 variant="outline"
                                 size="sm"
-                                className="gap-2 bg-transparent ml-auto"
+                                className="gap-2 bg-transparent self-end"
                                 onClick={() => window.open(item.file_url!, "_blank")}
                               >
                                 <Download size={16} />
@@ -183,7 +191,7 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
 
           <Card className="border-border">
             <CardContent className="pt-8">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Submission functionality to be added.'); }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-primary mb-2">Student Name *</label>
@@ -212,10 +220,10 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
                       required
                       className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     >
-                      <option>Select a course</option>
-                      <option>POL 501 - Advanced Peace and Conflict Studies</option>
-                      <option>POL 502 - Governance, Democracy and Institutions</option>
-                      <option>POL 301 - African Politics and Security</option>
+                      <option value="">Select a course</option>
+                      {courses.map(course => (
+                        <option key={course.id} value={course.code}>{course.code} - {course.title}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -224,21 +232,21 @@ export default function ClientStudentResourcesPage({ dbResources }: ClientStuden
                       required
                       className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     >
-                      <option>Select assignment</option>
-                      <option>Assignment 1 - Case Analysis</option>
-                      <option>Assignment 2 - Research Paper</option>
-                      <option>Final Project</option>
+                      <option value="">Select assignment</option>
+                      {availableAssignments.map(a => (
+                        <option key={a.id} value={a.title}>{a.title}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-primary mb-2">Upload File *</label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer relative">
                     <Upload className="mx-auto mb-4 text-muted-foreground" size={32} />
                     <p className="text-sm font-medium mb-1">Click to upload or drag and drop</p>
                     <p className="text-xs text-muted-foreground">PDF, DOCX, or PPTX up to 20MB</p>
-                    <input type="file" className="hidden" accept=".pdf,.docx,.pptx" />
+                    <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.pptx" />
                   </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { FileDown } from "lucide-react"
+import { getPublications, getSupervisees } from "@/lib/db-queries"
 
 export const metadata = {
   title: "About Dr. John Tor Tsuwa | Political Science Scholar",
@@ -8,7 +9,15 @@ export const metadata = {
     "Learn about Dr. John Tor Tsuwa's background, expertise in political science, peace and conflict studies, and professional experience.",
 }
 
-export default function About() {
+export default async function About() {
+  const publications = await getPublications()
+  const supervisees = await getSupervisees()
+
+  const publicationsCount = publications.length
+  const totalSupervised = supervisees.length
+
+  // Assuming start year is 1998
+  const yearsExperience = new Date().getFullYear() - 1998
   const education = [
     {
       degree: "Ph.D. in Defence and Strategic Studies",
@@ -109,7 +118,7 @@ export default function About() {
 
               <p className="text-lg text-foreground/80 leading-relaxed">
                 Professor John Tor Tsuwa is a senior political scientist at Rev. Fr. Moses Orshio Adasu University,
-                Makurdi, Nigeria. With over 25 years of academic and professional experience, he specializes in peace
+                Makurdi, Nigeria. With over {yearsExperience} years of academic and professional experience, he specializes in peace
                 and conflict resolution, governance, and strategic studies. He holds two Ph.D. degrees—one in Political
                 Science (2014) and another in Defence and Strategic Studies from the Nigerian Defence Academy (2017). He
                 is currently Deputy Director of the Centre for Peace and Development Studies.
@@ -122,7 +131,7 @@ export default function About() {
                     <li className="flex gap-3">
                       <span className="text-accent font-bold">•</span>
                       <span>
-                        Published 124 scholarly works including journal articles and book chapters on conflict,
+                        Published {publicationsCount} scholarly works including journal articles and book chapters on conflict,
                         governance, and African politics
                       </span>
                     </li>
@@ -147,7 +156,7 @@ export default function About() {
                     <li className="flex gap-3">
                       <span className="text-accent font-bold">•</span>
                       <span>
-                        Supervised 32+ postgraduate students and 70+ undergraduate students in political science and
+                        Supervised {totalSupervised}+ postgraduate students and 70+ undergraduate students in political science and
                         related fields
                       </span>
                     </li>

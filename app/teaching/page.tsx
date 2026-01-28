@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+
+export const dynamic = "force-dynamic"
 import { Button } from "@/components/ui/button"
 import { FileText } from "lucide-react"
-import { getCourses } from "@/lib/db-queries"
+import { getCourses, getSupervisees } from "@/lib/db-queries"
 
 export const metadata = {
   title: "Teaching & Courses | Dr. John Tor Tsuwa",
@@ -10,38 +12,17 @@ export const metadata = {
 }
 
 export default async function Teaching() {
+  const supervisees = await getSupervisees()
   const courses = await getCourses()
 
-  const teachingPhilosophy = [
-    {
-      title: "Critical Scholarship",
-      description:
-        "Students must engage deeply with ideas, not merely absorb them. Courses emphasize critical thinking about governance, conflict, and politics.",
-      icon: "thinking",
-    },
-    {
-      title: "Real-World Focus",
-      description:
-        "African politics are complex and dynamic. Teaching incorporates contemporary cases, current events, and practical examples of conflict and governance.",
-      icon: "practical",
-    },
-    {
-      title: "Scholarly Rigor",
-      description:
-        "Grounded in peer-reviewed research and evidence. Students learn to engage with academic literature and develop evidence-based arguments.",
-      icon: "academic",
-    },
-    {
-      title: "Professional Development",
-      description:
-        "Beyond grades, I mentor students for careers in government, international organizations, academia, and civil society.",
-      icon: "career",
-    },
-  ]
+  const totalCount = supervisees.length
+  const phdOngoing = supervisees.filter(s => s.level.toLowerCase().includes('phd') && s.status === 'ongoing').length
+  const mscOngoing = supervisees.filter((s) => (s.level.toLowerCase().includes('msc') || s.level.toLowerCase().includes('postgraduate')) && s.status === 'ongoing').length
+  const currentCount = phdOngoing + mscOngoing
 
   const supervision = {
-    doctoral: { count: 32, description: "MA and MSc Students supervised since 2006" },
-    current: { count: 9, description: "Current doctoral students (4 PhD + 5 MSc)" },
+    doctoral: { count: totalCount, description: "MA and MSc Students supervised since 2006" },
+    current: { count: currentCount, description: `Current doctoral students (${phdOngoing} PhD + ${mscOngoing} MSc)` },
     placement: { count: 85, description: "Graduate placement rate in academia and government" },
   }
 

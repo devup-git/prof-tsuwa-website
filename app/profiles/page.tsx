@@ -43,53 +43,53 @@ export default function ProfilesPage() {
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.50.51 PM.jpeg",
       caption:
-        "Knowledge exchange and professional collaboration with distinguished colleagues during office engagement",
+        "Prof. Tsuwa presenting to VC",
       alt: "Dr. Tsuwa presenting documents with colleague in office setting",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.51.33 PM.jpeg",
-      caption: "Handshake moment and recognition with institutional officials during formal engagement",
+      caption: "Prof. Tsuwa with institutional officials during formal engagement",
       alt: "Dr. Tsuwa shaking hands with government official",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.52.22 PM.jpeg",
-      caption: "Academic dialogue and institutional leadership on peace and conflict resolution",
+      caption: "Academic dialogue and institutional leadership",
       alt: "Dr. Tsuwa engaged in professional discussion at conference table",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.10 PM.jpeg",
-      caption: "Professional collaboration and strategic engagement with institutional partners",
+      caption: "Professional collaboration and strategic engagement",
       alt: "Dr. Tsuwa in conversation with colleague during official meeting",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.12 PM.jpeg",
-      caption: "Recognition and presentation of scholarly contributions and research achievements",
+      caption: "Group engagement and institutional partnership with stakeholders and officials",
       alt: "Award presentation and recognition of academic contributions",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.13 PM.jpeg",
-      caption: "Environmental and community engagement initiatives promoting sustainable development",
+      caption: "Group engagement and institutional partnership with stakeholders and officials",
       alt: "Community members and officials planting tree together",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.15 PM.jpeg",
-      caption: "Group engagement and institutional partnership with stakeholders and officials",
+      caption: "Professional collaboration and strategic engagement",
       alt: "Group photo of institutional officials and professional collaborators",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.17 PM.jpeg",
-      caption: "Public speaking and institutional leadership addressing governance and peace initiatives",
+      caption: "Prof. Tsuwa speaking during an official engagement",
       alt: "Dr. Tsuwa speaking at microphone during official address",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.19 PM.jpeg",
-      caption: "Professional networking and collaboration with government and institutional officials",
+      caption: "Prof. Tsuwa speaking during an official engagement",
       alt: "Knowledge and materials exchange with colleague",
     },
     {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.59.33 PM.jpeg",
-      caption: "Strategic session and documentation review with academic partners",
-      alt: "Dr. Tsuwa reviewing documents with colleague",
+      src: "/Profile Images/peace_tree_planting.jpg",
+      caption: "Planting the peace tree at the Peace garden of the Centre for Peace and Development Studies with Chief. Paul Harris Ogbole during the 2025 international day of Peace",
+      alt: "Prof. Tsuwa and Chief Paul Harris Ogbole planting the peace tree during International Day of Peace 2025",
     },
   ]
 

@@ -42,6 +42,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                   Books
                 </Button>
               </Link>
+              <Link href="/admin/research">
+                <Button variant="ghost" size="sm">
+                  Research
+                </Button>
+              </Link>
+              <Link href="/admin/teaching">
+                <Button variant="ghost" size="sm">
+                  Teaching
+                </Button>
+              </Link>
               <Link href="/admin/supervision">
                 <Button variant="ghost" size="sm">
                   Supervision

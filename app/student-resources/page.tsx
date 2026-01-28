@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+
+export const dynamic = "force-dynamic"
 import ClientStudentResourcesPage from "./client-page"
 
 export const metadata: Metadata = {
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
 }
 
 export default async function StudentResourcesPage() {
-  const dbResources = await import("@/lib/db-queries").then((mod) => mod.getStudentResources())
+  const { getStudentResources, getCourses } = await import("@/lib/db-queries")
+  const dbResources = await getStudentResources()
+  const courses = await getCourses()
 
-  return <ClientStudentResourcesPage dbResources={dbResources} />
+  return <ClientStudentResourcesPage dbResources={dbResources} courses={courses} />
 }

@@ -1,6 +1,7 @@
 import { addStudentResource, deleteStudentResource } from "@/lib/db-queries"
 import { checkAdminAPI, handleAdminError } from "@/lib/api-auth"
 import { type NextRequest, NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: NextRequest) {
     try {
@@ -14,6 +15,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Failed to add resource" }, { status: 500 })
         }
 
+        revalidatePath("/student-resources")
+        revalidatePath("/admin/resources")
         return NextResponse.json(newResource, { status: 201 })
     } catch (error) {
         return handleAdminError(error)
@@ -38,6 +41,8 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: "Failed to delete resource" }, { status: 500 })
         }
 
+        revalidatePath("/student-resources")
+        revalidatePath("/admin/resources")
         return NextResponse.json({ success: true })
     } catch (error) {
         return handleAdminError(error)
