@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic"
 import ClientStudentResourcesPage from "./client-page"
 
 export const metadata: Metadata = {
-  title: "Student Resources | Prof. John Tor Tsuwa",
+  title: "Student Resources | Dr. John Tor Tsuwa",
   description: "Course materials, lecture notes, reading lists, and student resources",
 }
 

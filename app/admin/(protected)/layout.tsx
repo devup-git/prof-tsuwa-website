@@ -5,7 +5,7 @@ import { checkAdminAuth } from "@/lib/admin-auth"
 import { redirect } from "next/navigation"
 
 export const metadata = {
-  title: "Admin Dashboard | Prof. John Tor Tsuwa",
+  title: "Admin Dashboard | Dr. John Tor Tsuwa",
   description: "Content management dashboard",
 }
 

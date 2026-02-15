@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Prof. John Tor Tsuwa</h3>
+            <h3 className="text-lg font-bold mb-4">Dr. John Tor Tsuwa</h3>
             <p className="text-primary-foreground/90 text-sm leading-relaxed">{siteConfig.description}</p>
           </div>
 
@@ -63,7 +63,7 @@ export function Footer() {
         {/* Divider */}
         <div className="border-t border-primary-foreground/30 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/80">
-            <p>&copy; {currentYear} Prof. John Tor Tsuwa. All rights reserved.</p>
+            <p>&copy; {currentYear} Dr. John Tor Tsuwa. All rights reserved.</p>
             <div className="mt-4 md:mt-0">
               <p>Crafted by Stan</p>
             </div>

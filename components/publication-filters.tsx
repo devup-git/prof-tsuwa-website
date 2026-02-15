@@ -18,7 +18,7 @@ export function PublicationFilters({ onFilterChange }: PublicationFiltersProps) 
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: "",
     type: "all",
-    yearRange: { start: 2015, end: 2024 },
+    yearRange: { start: 2000, end: 2026 },
   })
 
   const handleSearchChange = (value: string) => {
@@ -101,8 +101,8 @@ export function PublicationFilters({ onFilterChange }: PublicationFiltersProps) 
               <label className="block text-xs text-muted-foreground mb-1">From: {filters.yearRange.start}</label>
               <input
                 type="range"
-                min="2000"
-                max="2024"
+                min="1990"
+                max="2030"
                 value={filters.yearRange.start}
                 onChange={(e) => handleYearStart(Number.parseInt(e.target.value))}
                 className="w-full"
@@ -112,8 +112,8 @@ export function PublicationFilters({ onFilterChange }: PublicationFiltersProps) 
               <label className="block text-xs text-muted-foreground mb-1">To: {filters.yearRange.end}</label>
               <input
                 type="range"
-                min="2000"
-                max="2024"
+                min="1990"
+                max="2030"
                 value={filters.yearRange.end}
                 onChange={(e) => handleYearEnd(Number.parseInt(e.target.value))}
                 className="w-full"
@@ -131,7 +131,7 @@ export function PublicationFilters({ onFilterChange }: PublicationFiltersProps) 
             const defaultFilters: FilterState = {
               searchTerm: "",
               type: "all",
-              yearRange: { start: 2015, end: 2024 },
+              yearRange: { start: 2000, end: 2026 },
             }
             setFilters(defaultFilters)
             onFilterChange(defaultFilters)

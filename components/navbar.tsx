@@ -33,7 +33,7 @@ export function Navbar() {
             <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
               JT
             </div>
-            <span className="hidden sm:inline">Prof. Tsuwa</span>
+            <span className="hidden sm:inline">Dr. Tsuwa</span>
           </Link>
 
           {/* Desktop Navigation */}

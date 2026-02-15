@@ -1,13 +1,13 @@
 export const siteConfig = {
-  name: "Professor John Tor Tsuwa",
+  name: "Dr. John Tor Tsuwa",
   description:
-    "Academic website and consultancy portal for Professor John Tor Tsuwa - Political Scientist specializing in Peace, Conflict Resolution, Governance, and Security Studies.",
+    "Academic website and consultancy portal for Dr. John Tor Tsuwa - Political Scientist specializing in Peace, Conflict Resolution, Governance, and Security Studies.",
   url: "https://johntortsuwa.edu.ng",
   ogImage: "https://johntortsuwa.edu.ng/og-image.png",
 
   contact: {
     email: "john.tsuwa@remoau.edu.ng",
-    phone: "+234 (0) 703-456-7890",
+    phone: "+234 (0) 701-528-9262",
     office: {
       name: "Department of Political Science",
       university: "Rev. Fr. Moses Orshio Adasu University, Makurdi",

@@ -117,7 +117,7 @@ export default async function About() {
               </div>
 
               <p className="text-lg text-foreground/80 leading-relaxed">
-                Professor John Tor Tsuwa is a senior political scientist at Rev. Fr. Moses Orshio Adasu University,
+                John Tor Tsuwa is a senior political scientist at Rev. Fr. Moses Orshio Adasu University,
                 Makurdi, Nigeria. With over {yearsExperience} years of academic and professional experience, he specializes in peace
                 and conflict resolution, governance, and strategic studies. He holds two Ph.D. degrees—one in Political
                 Science (2014) and another in Defence and Strategic Studies from the Nigerian Defence Academy (2017). He
@@ -164,9 +164,11 @@ export default async function About() {
                 </div>
               </div>
 
-              <Button size="lg" className="bg-accent hover:bg-accent/90 w-full sm:w-auto">
-                <FileDown className="mr-2 h-4 w-4" />
-                Download CV (PDF)
+              <Button size="lg" className="bg-accent hover:bg-accent/90 w-full sm:w-auto" asChild>
+                <a href="/John_Tor_Tsuwa_CV.pdf" target="_blank" rel="noopener noreferrer">
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Download CV (PDF)
+                </a>
               </Button>
             </div>
           </div>

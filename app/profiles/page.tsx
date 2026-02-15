@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ExternalLink, CheckCircle, AlertCircle } from "lucide-react"
 import Image from "next/image"
+import { PhotoGallery } from "@/components/photo-gallery"
 
 export const dynamic = "force-dynamic"
 
@@ -43,12 +44,12 @@ export default function ProfilesPage() {
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.50.51 PM.jpeg",
       caption:
-        "Prof. Tsuwa presenting to VC",
+        "Dr. Tsuwa presenting to VC",
       alt: "Dr. Tsuwa presenting documents with colleague in office setting",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.51.33 PM.jpeg",
-      caption: "Prof. Tsuwa with institutional officials during formal engagement",
+      caption: "Dr. Tsuwa with institutional officials during formal engagement",
       alt: "Dr. Tsuwa shaking hands with government official",
     },
     {
@@ -78,19 +79,43 @@ export default function ProfilesPage() {
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.17 PM.jpeg",
-      caption: "Prof. Tsuwa speaking during an official engagement",
-      alt: "Dr. Tsuwa speaking at microphone during official address",
+      caption: "Dr. Tsuwa speaking during an official engagement",
+      alt: "Dr. Tsuwa speaking formally at an official event",
     },
     {
       src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.19 PM.jpeg",
-      caption: "Prof. Tsuwa speaking during an official engagement",
+      caption: "Dr. Tsuwa speaking during an official engagement",
       alt: "Knowledge and materials exchange with colleague",
     },
     {
       src: "/Profile Images/peace_tree_planting.jpg",
       caption: "Planting the peace tree at the Peace garden of the Centre for Peace and Development Studies with Chief. Paul Harris Ogbole during the 2025 international day of Peace",
-      alt: "Prof. Tsuwa and Chief Paul Harris Ogbole planting the peace tree during International Day of Peace 2025",
+      alt: "Dr. Tsuwa and Chief Paul Harris Ogbole planting the peace tree during International Day of Peace 2025",
     },
+  ]
+
+  const peaceWeekImages = [
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day.jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (1).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (2).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (3).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (4).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (5).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (7).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (8).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (9).jpg",
+    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (11).jpg",
+  ]
+
+  const peaceBuildingImages = [
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7844.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7864.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7877.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7952.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7971.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8001.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8016.JPG",
+    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8091.JPG",
   ]
 
   return (
@@ -106,35 +131,8 @@ export default function ProfilesPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12">Professional Engagements & Activities</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {imageGallery.map((image, index) => (
-              <div
-                key={index}
-                className="group overflow-hidden rounded-lg border border-border bg-background hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="relative h-64 w-full overflow-hidden bg-muted">
-                  <Image
-                    src={image.src || "/placeholder.svg"}
-                    alt={image.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-4">
-                  <p className="text-sm font-medium text-foreground leading-relaxed">{image.caption}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Profiles Grid */}
-      <section className="py-20 md:py-32 bg-muted/30">
+      <section className="py-20 md:py-32 bg-muted/30 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-12">Research & Academic Networks</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -164,6 +162,51 @@ export default function ProfilesPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-4">Professional Engagements & Activities</h2>
+          <p className="text-lg text-muted-foreground mb-12">
+            A visual record of professional consultations, academic leadership, community service, and peace-building initiatives.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            {imageGallery.map((image, index) => (
+              <div
+                key={index}
+                className="group overflow-hidden rounded-lg border border-border bg-background hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="relative h-64 w-full overflow-hidden bg-muted">
+                  <Image
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="text-sm font-medium text-foreground leading-relaxed">{image.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-20">
+            <PhotoGallery
+              title="2025 International Week of Peace"
+              description="Dr. Tsuwa coordinating activities for the International Week of Peace 2025"
+              images={peaceWeekImages}
+            />
+
+            <PhotoGallery
+              title="Peace Building in Conflict Response"
+              description="Dr. Tsuwa engaging in peace building activities in conflict-affected communities"
+              images={peaceBuildingImages}
+            />
           </div>
         </div>
       </section>

@@ -98,9 +98,11 @@ export default async function Teaching() {
                       <p className="text-foreground">{course.semester}</p>
                     </div>
                     {course.syllabus_url && (
-                      <Button variant="outline" size="sm">
-                        <FileText className="mr-2 h-4 w-4" />
-                        Download Syllabus
+                      <Button variant="outline" size="sm" asChild>
+                        <a href={course.syllabus_url} target="_blank" rel="noopener noreferrer">
+                          <FileText className="mr-2 h-4 w-4" />
+                          Download Syllabus
+                        </a>
                       </Button>
                     )}
                   </div>

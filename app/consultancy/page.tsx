@@ -5,7 +5,7 @@ import ConsultancyClientForm from "./consultancy-client"
 import { getConsultancyServices, getConsultancyCaseStudies } from "@/lib/db-queries"
 
 export const metadata: Metadata = {
-  title: "Consultancy Services | Prof. John Tor Tsuwa",
+  title: "Consultancy Services | Dr. John Tor Tsuwa",
   description: "Professional consultancy services in governance, peace studies, and organizational development",
 }
 

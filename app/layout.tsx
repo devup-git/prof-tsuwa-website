@@ -7,7 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
-  title: "Prof. John Tor Tsuwa | Political Science Scholar & Governance Expert",
+  title: "Dr. John Tor Tsuwa | Political Science Scholar & Governance Expert",
   description: siteConfig.description,
   keywords: [
     "Political Science",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "John Tor Tsuwa" }],
   openGraph: {
-    title: "Prof. John Tor Tsuwa | Political Science Scholar & Governance Expert",
+    title: "Dr. John Tor Tsuwa | Political Science Scholar & Governance Expert",
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Prof. John Tor Tsuwa",
+        alt: "Dr. John Tor Tsuwa",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prof. John Tor Tsuwa",
+    title: "Dr. John Tor Tsuwa",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },

@@ -1,6 +1,6 @@
-# Professor John Tor Tsuwa - Academic Website
+#  John Tor Tsuwa - Academic Website
 
-Academic website and consultancy portal for Professor John Tor Tsuwa, specializing in Political Science, Peace Studies, Conflict Resolution, Governance, and Security Studies.
+Academic website and consultancy portal for  John Tor Tsuwa, specializing in Political Science, Peace Studies, Conflict Resolution, Governance, and Security Studies.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ Required environment variables:
 - `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key
 - `RESEND_API_KEY` - Your Resend API key for email
 - `SENDER_EMAIL` - Email address for sending notifications (must be verified in Resend)
-- `NEXT_PUBLIC_PROFESSOR_EMAIL` - Professor's email to receive contact notifications
+- `NEXT_PUBLIC__EMAIL` - 's email to receive contact notifications
 
 ### 3. Database Setup
 

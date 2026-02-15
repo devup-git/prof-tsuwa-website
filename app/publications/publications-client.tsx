@@ -30,7 +30,7 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: "",
     type: "all",
-    yearRange: { start: 2015, end: 2024 },
+    yearRange: { start: 2000, end: 2026 },
   })
 
   const publications = initialPublications.map((pub) => ({
@@ -44,6 +44,7 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
     issue: pub.issue,
     pages: pub.pages,
     doi: pub.doi,
+    url: pub.url,
     abstract: pub.abstract || "No abstract available.",
   }))
 
@@ -124,7 +125,7 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
               {filteredPublications.length > 0 ? (
                 <div className="space-y-6">
                   <p className="text-sm text-muted-foreground mb-6">
-                    Showing {filteredPublications.length} of {publications.length} publications
+                    Showing 1 - {filteredPublications.length} of {publications.length} publications
                   </p>
 
                   {filteredPublications.map((pub) => (
@@ -177,15 +178,21 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
                           {/* Action Buttons */}
                           <div className="flex flex-wrap gap-3 pt-4">
                             {pub.doi && (
-                              <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-                                <ExternalLink size={16} />
-                                View on DOI
+                              <Button asChild variant="outline" size="sm" className="gap-2 bg-transparent">
+                                <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink size={16} />
+                                  View on DOI
+                                </a>
                               </Button>
                             )}
-                            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-                              <Download size={16} />
-                              Download PDF
-                            </Button>
+                            {pub.url && (
+                              <Button asChild variant="outline" size="sm" className="gap-2 bg-transparent">
+                                <a href={pub.url} target="_blank" rel="noopener noreferrer">
+                                  <Download size={16} />
+                                  Download PDF
+                                </a>
+                              </Button>
+                            )}
                           </div>
                         </div>
                       </CardHeader>

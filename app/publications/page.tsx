@@ -4,9 +4,9 @@ import { getPublications } from "@/lib/db-queries"
 export const dynamic = "force-dynamic"
 
 export const metadata = {
-  title: "Publications | Prof. John Tor Tsuwa",
+  title: "Publications | Dr. John Tor Tsuwa",
   description:
-    "Explore Prof. John Tor Tsuwa's research publications in strategic management, organizational development, and business transformation.",
+    "Explore Dr. John Tor Tsuwa's research publications in strategic management, organizational development, and business transformation.",
 }
 
 export default async function PublicationsPage() {

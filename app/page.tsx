@@ -23,17 +23,23 @@ export default async function Home() {
         <section className="relative w-full">
           <ImageCarousel images={["/images/5.png", "/images/4.png", "/images/2.png", "/images/3.png"]} interval={3000} />
 
+          {/* Dark Overlay for better contrast */}
+          <div className="absolute inset-0 bg-black/40 z-0" />
+
           {/* Content Overlay on Hero */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-balance leading-tight mb-4">
-                Professor John Tor Tsuwa
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-balance leading-tight mb-2">
+                Dr. John Tor Tsuwa
               </h1>
+              <p className="text-lg md:text-xl font-medium mb-6 text-white/90">
+                B.Sc (BSU), M.Sc (BSU), PhD (BSU), PhD (NDA)
+              </p>
               <p className="text-xl md:text-2xl font-semibold mb-6">
                 Political Scientist | Peace & Conflict Scholar | Governance and Security Consultant
               </p>
               <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-8">
-                Professor John Tor Tsuwa is a senior political scientist at Rev. Fr. Moses Orshio Adasu University,
+                Dr. John Tor Tsuwa is a senior political scientist at Rev. Fr. Moses Orshio Adasu University,
                 Makurdi, with scholarly and policy expertise in peace and conflict resolution, governance, electoral
                 studies, and security in Nigeria and Africa.
               </p>

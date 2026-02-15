@@ -159,10 +159,12 @@ export default function ClientStudentResourcesPage({ dbResources, courses }: Cli
                                 variant="outline"
                                 size="sm"
                                 className="gap-2 bg-transparent self-end"
-                                onClick={() => window.open(item.file_url!, "_blank")}
+                                asChild
                               >
-                                <Download size={16} />
-                                Download
+                                <a href={item.file_url!} target="_blank" rel="noopener noreferrer">
+                                  <Download size={16} />
+                                  Download
+                                </a>
                               </Button>
                             )}
                           </div>
