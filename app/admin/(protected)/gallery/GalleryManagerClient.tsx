@@ -180,17 +180,24 @@ export default function GalleryManagerClient({ initialItems }: GalleryManagerCli
                                 )}
 
                                 <div>
-                                    <label className="block text-sm font-semibold mb-2">Category</label>
-                                    <select
+                                    <label className="block text-sm font-semibold mb-2">Category (Type or Select)</label>
+                                    <input
+                                        type="text"
+                                        list="category-suggestions"
                                         value={formData.category}
                                         onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                        className="w-full px-4 py-2 border rounded-lg"
-                                    >
-                                        <option value="General">General</option>
-                                        <option value="Peace Building">Peace Building</option>
-                                        <option value="Academic">Academic</option>
-                                        <option value="Consultancy">Consultancy</option>
-                                    </select>
+                                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
+                                        placeholder="e.g., Peace Building, Academic, Consultancy..."
+                                    />
+                                    <datalist id="category-suggestions">
+                                        <option value="General" />
+                                        <option value="Peace Building" />
+                                        <option value="Academic" />
+                                        <option value="Consultancy" />
+                                        <option value="Community Service" />
+                                        <option value="Professional Mentorship" />
+                                        {/* Dynamic suggestions from existing items can be added here if needed */}
+                                    </datalist>
                                 </div>
 
                                 <div>

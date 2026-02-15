@@ -37,7 +37,7 @@ export function Navbar() {
                 className="object-cover w-full h-full"
               />
             </div>
-            <span className="hidden sm:inline">John Tsuwa, Ph.D</span>
+            <span className="hidden sm:inline">JOHN TSUWA, Ph.D</span>
           </Link>
 
           {/* Desktop Navigation */}

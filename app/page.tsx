@@ -30,7 +30,7 @@ export default async function Home() {
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-balance leading-tight mb-2">
-                Dr. John Tor Tsuwa
+                JOHN TOR TSUWA
               </h1>
               <p className="text-lg md:text-xl font-medium mb-6 text-white/90">
                 B.Sc (BSU), M.Sc (BSU), PhD (BSU), PhD (NDA)

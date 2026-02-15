@@ -472,7 +472,7 @@ export async function getGalleryItems() {
     .order("created_at", { ascending: false })
 
   if (error) {
-    console.error("[v0] Error fetching gallery items:", error)
+    console.error("[v0] Error fetching gallery items:", JSON.stringify(error, null, 2))
     return []
   }
   return data || []
