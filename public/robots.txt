@@ -5,5 +5,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /admin/login
 
-# Sitemap (Update this URL with your actual production domain)
-Sitemap: https://YOUR-PRODUCTION-DOMAIN.com/sitemap.xml
+# Sitemap
+Sitemap: https://johntortsuwa.edu.ng/sitemap.xml

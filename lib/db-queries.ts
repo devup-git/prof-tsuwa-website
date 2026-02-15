@@ -462,3 +462,51 @@ export async function deleteCourse(id: string) {
   }
   return true
 }
+// --- GALLERY ---
+
+export async function getGalleryItems() {
+  const supabase = await getSupabaseServer()
+  const { data, error } = await supabase
+    .from("gallery")
+    .select("*")
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("[v0] Error fetching gallery items:", error)
+    return []
+  }
+  return data || []
+}
+
+export async function addGalleryItem(item: any) {
+  const supabase = await getSupabaseAdmin()
+  const { data, error } = await supabase.from("gallery").insert([item]).select()
+
+  if (error) {
+    console.error("[v0] Error adding gallery item:", error)
+    return null
+  }
+  return data?.[0] || null
+}
+
+export async function updateGalleryItem(id: string, updates: any) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("gallery").update(updates).eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error updating gallery item:", error)
+    return false
+  }
+  return true
+}
+
+export async function deleteGalleryItem(id: string) {
+  const supabase = await getSupabaseAdmin()
+  const { error } = await supabase.from("gallery").delete().eq("id", id)
+
+  if (error) {
+    console.error("[v0] Error deleting gallery item:", error)
+    return false
+  }
+  return true
+}

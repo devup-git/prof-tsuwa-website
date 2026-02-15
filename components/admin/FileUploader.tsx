@@ -5,70 +5,120 @@ import { getSupabaseClient } from "@/lib/supabase-client"
 import { Button } from "@/components/ui/button"
 import { Upload, X, Loader2, FileText, CheckCircle } from "lucide-react"
 import { toast } from "sonner"
+import { addWatermarkToPdf } from "@/lib/watermark"
 
 interface FileUploaderProps {
     bucket: "cms_docs" | "cms_images"
-    onUploadComplete: (url: string) => void
+    onUploadComplete?: (url: string) => void
+    onUploadsComplete?: (urls: string[]) => void
     currentFileUrl?: string
     acceptedFileTypes?: string
     label?: string
+    allowMultiple?: boolean
 }
 
 export default function FileUploader({
     bucket,
     onUploadComplete,
+    onUploadsComplete,
     currentFileUrl,
     acceptedFileTypes = "*",
     label = "Upload File",
+    allowMultiple = false,
 }: FileUploaderProps) {
     const [isUploading, setIsUploading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [uploadProgress, setUploadProgress] = useState(0)
 
     const supabase = getSupabaseClient()
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
-        if (!file) return
+        const files = e.target.files
+        if (!files || files.length === 0) return
 
         setIsUploading(true)
         setError(null)
+        setUploadProgress(0)
+
+        const uploadedUrls: string[] = []
+        const filesArray = Array.from(files)
 
         try {
-            // Create a unique file path: timestamp-filename
-            const fileExt = file.name.split(".").pop()
-            const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
-            const filePath = `${fileName}`
+            for (let i = 0; i < filesArray.length; i++) {
+                const file = filesArray[i]
+                const fileExt = file.name.split(".").pop()
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+                const filePath = `${fileName}`
 
-            const { data, error: uploadError } = await supabase.storage
-                .from(bucket)
-                .upload(filePath, file)
+                let fileToUpload = file
 
-            if (uploadError) throw uploadError
+                // Apply watermark if it's a PDF
+                if (fileExt?.toLowerCase() === "pdf") {
+                    try {
+                        const reader = new FileReader()
+                        const pdfData = await new Promise<ArrayBuffer>((resolve, reject) => {
+                            reader.onload = () => resolve(reader.result as ArrayBuffer)
+                            reader.onerror = reject
+                            reader.readAsArrayBuffer(file)
+                        })
 
-            // Get public URL
-            const { data: { publicUrl } } = supabase.storage
-                .from(bucket)
-                .getPublicUrl(filePath)
+                        const watermarkedPdf = await addWatermarkToPdf(
+                            new Uint8Array(pdfData),
+                            "John Tor Tsuwa, Ph.D",
+                            "johntortsuwa.edu.ng"
+                        )
 
-            onUploadComplete(publicUrl)
+                        fileToUpload = new File([watermarkedPdf as any], file.name, { type: "application/pdf" })
+                        toast.success("PDF watermark applied successfully")
+                    } catch (wmError) {
+                        console.error("Watermarking error:", wmError)
+                        toast.error("Watermark failed (PDF may be protected), uploading original...")
+                        // Continue with original file if watermarking fails
+                    }
+                }
+
+                const { data, error: uploadError } = await supabase.storage
+                    .from(bucket)
+                    .upload(filePath, fileToUpload)
+
+                if (uploadError) throw uploadError
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from(bucket)
+                    .getPublicUrl(filePath)
+
+                uploadedUrls.push(publicUrl)
+                setUploadProgress(Math.round(((i + 1) / filesArray.length) * 100))
+            }
+
+            if (allowMultiple && onUploadsComplete) {
+                onUploadsComplete(uploadedUrls)
+            } else if (onUploadComplete) {
+                onUploadComplete(uploadedUrls[0])
+            }
+
+            if (filesArray.length > 1) {
+                toast.success(`Successfully uploaded ${filesArray.length} files`)
+            }
         } catch (err: any) {
             console.error("Upload error:", err)
             setError(err.message || "Failed to upload file")
+            toast.error("Upload failed")
         } finally {
             setIsUploading(false)
         }
     }
 
     const handleClear = () => {
-        onUploadComplete("") // Clear the URL in parent
+        if (onUploadComplete) onUploadComplete("")
     }
 
     return (
         <div className="w-full">
             <label className="block text-sm font-semibold text-primary mb-2">{label}</label>
 
-            {!currentFileUrl ? (
-                <div className="flex items-center gap-4">
+            {!currentFileUrl || allowMultiple ? (
+                <div className="flex flex-col gap-2">
                     <Button
                         type="button"
                         variant="outline"
@@ -79,18 +129,21 @@ export default function FileUploader({
                         {isUploading ? (
                             <>
                                 <Loader2 className="animate-spin h-6 w-6" />
-                                <span>Uploading...</span>
+                                <span>Uploading ({uploadProgress}%)...</span>
                             </>
                         ) : (
                             <>
                                 <Upload className="h-6 w-6 text-muted-foreground" />
-                                <span className="text-muted-foreground">Click to upload</span>
+                                <span className="text-muted-foreground">
+                                    {allowMultiple ? "Click to upload multiple files" : "Click to upload"}
+                                </span>
                             </>
                         )}
                     </Button>
                     <input
                         id={`file-upload-${label}`}
                         type="file"
+                        multiple={allowMultiple}
                         accept={acceptedFileTypes}
                         onChange={handleFileChange}
                         className="hidden"

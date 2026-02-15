@@ -1,212 +1,56 @@
 import type { Metadata } from "next"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ExternalLink, CheckCircle, AlertCircle } from "lucide-react"
-import Image from "next/image"
 import { PhotoGallery } from "@/components/photo-gallery"
+import { getGalleryItems } from "@/lib/db-queries"
 
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Academic Profiles | Dr. John Tor Tsuwa",
-  description: "Links to academic and professional profiles across research platforms and professional networks",
+  title: "Professional Gallery | John Tsuwa, Ph.D",
+  description: "A visual record of professional consultations, academic leadership, community service, and peace-building initiatives.",
 }
 
-export default function ProfilesPage() {
-  const profiles = [
-    {
-      platform: "Google Scholar",
-      description: "Track publications, citations, and h-index. View citation metrics and scholarly impact.",
-      url: "https://scholar.google.com/citations?user=vpO27JwAAAAJ&hl=en",
-      verified: true,
-    },
-    {
-      platform: "ORCID",
-      description: "Open Researcher and Contributor ID - persistent digital identifier for academic contributions.",
-      url: "https://orcid.org/0000-0002-7090-5556",
-      verified: true,
-    },
-    {
-      platform: "AD Scientific Index",
-      description: "Academic performance index tracking publications, citations, and scholarly contributions.",
-      url: "https://www.adscientificindex.com/scientist/scientist-articles/john-tor-tsuwa/4920098",
-      verified: true,
-    },
-    {
-      platform: "ResearchGate",
-      description:
-        "Full research profile with publications, projects, and collaboration opportunities in peace and conflict studies.",
-      url: "https://www.researchgate.net/profile/John-Tsuwa",
-      verified: true,
-    },
-  ]
+export default async function GalleryPage() {
+  const galleryItems = await getGalleryItems()
 
-  const imageGallery = [
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.50.51 PM.jpeg",
-      caption:
-        "Dr. Tsuwa presenting to VC",
-      alt: "Dr. Tsuwa presenting documents with colleague in office setting",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.51.33 PM.jpeg",
-      caption: "Dr. Tsuwa with institutional officials during formal engagement",
-      alt: "Dr. Tsuwa shaking hands with government official",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.52.22 PM.jpeg",
-      caption: "Academic dialogue and institutional leadership",
-      alt: "Dr. Tsuwa engaged in professional discussion at conference table",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.10 PM.jpeg",
-      caption: "Professional collaboration and strategic engagement",
-      alt: "Dr. Tsuwa in conversation with colleague during official meeting",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.12 PM.jpeg",
-      caption: "Group engagement and institutional partnership with stakeholders and officials",
-      alt: "Award presentation and recognition of academic contributions",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.13 PM.jpeg",
-      caption: "Group engagement and institutional partnership with stakeholders and officials",
-      alt: "Community members and officials planting tree together",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.15 PM.jpeg",
-      caption: "Professional collaboration and strategic engagement",
-      alt: "Group photo of institutional officials and professional collaborators",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.17 PM.jpeg",
-      caption: "Dr. Tsuwa speaking during an official engagement",
-      alt: "Dr. Tsuwa speaking formally at an official event",
-    },
-    {
-      src: "/Profile Images/WhatsApp Image 2026-01-06 at 9.53.19 PM.jpeg",
-      caption: "Dr. Tsuwa speaking during an official engagement",
-      alt: "Knowledge and materials exchange with colleague",
-    },
-    {
-      src: "/Profile Images/peace_tree_planting.jpg",
-      caption: "Planting the peace tree at the Peace garden of the Centre for Peace and Development Studies with Chief. Paul Harris Ogbole during the 2025 international day of Peace",
-      alt: "Dr. Tsuwa and Chief Paul Harris Ogbole planting the peace tree during International Day of Peace 2025",
-    },
-  ]
-
-  const peaceWeekImages = [
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day.jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (1).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (2).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (3).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (4).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (5).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (7).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (8).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (9).jpg",
-    "/Dr Tsuwa Coordinating activities for 2025 International Week of Peace/Peace Day (11).jpg",
-  ]
-
-  const peaceBuildingImages = [
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7844.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7864.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7877.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7952.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_7971.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8001.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8016.JPG",
-    "/Dr Tsuwa engages in Peace buiding activities in conflict affected communities/IMG_8091.JPG",
-  ]
+  // Group images by category if needed, or just show all
+  const categories = Array.from(new Set(galleryItems.map(item => item.category)))
 
   return (
     <div className="min-h-screen">
       {/* Hero */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/5 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Academic & Professional Profiles</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Professional Gallery</h1>
           <p className="text-xl text-foreground/80 leading-relaxed max-w-3xl">
-            Connect with my research across major academic and professional networks. These profiles provide
-            comprehensive views of my publications, citations, scholarly impact, and professional engagement.
-          </p>
-        </div>
-      </section>
-
-      {/* Profiles Grid */}
-      <section className="py-20 md:py-32 bg-muted/30 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12">Research & Academic Networks</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {profiles.map((profile, i) => (
-              <Card key={i} className="border-border hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <CardTitle className="text-lg text-primary">{profile.platform}</CardTitle>
-                    {profile.verified ? (
-                      <CheckCircle size={20} className="text-green-500 flex-shrink-0" />
-                    ) : (
-                      <AlertCircle size={20} className="text-yellow-500 flex-shrink-0" />
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-foreground/80">{profile.description}</p>
-                  <a
-                    href={profile.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
-                  >
-                    Visit Profile
-                    <ExternalLink size={16} />
-                  </a>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-4">Professional Engagements & Activities</h2>
-          <p className="text-lg text-muted-foreground mb-12">
             A visual record of professional consultations, academic leadership, community service, and peace-building initiatives.
           </p>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-            {imageGallery.map((image, index) => (
-              <div
-                key={index}
-                className="group overflow-hidden rounded-lg border border-border bg-background hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="relative h-64 w-full overflow-hidden bg-muted">
-                  <Image
-                    src={image.src || "/placeholder.svg"}
-                    alt={image.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-4">
-                  <p className="text-sm font-medium text-foreground leading-relaxed">{image.caption}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
+      {/* Dynamic Image Galleries */}
+      <section className="py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-20">
-            <PhotoGallery
-              title="2025 International Week of Peace"
-              description="Dr. Tsuwa coordinating activities for the International Week of Peace 2025"
-              images={peaceWeekImages}
-            />
-
-            <PhotoGallery
-              title="Peace Building in Conflict Response"
-              description="Dr. Tsuwa engaging in peace building activities in conflict-affected communities"
-              images={peaceBuildingImages}
-            />
+            {categories.length > 0 ? (
+              categories.map(category => {
+                const categoryImages = galleryItems.filter(item => item.category === category)
+                return (
+                  <PhotoGallery
+                    key={category}
+                    title={category}
+                    description={`Activities and engagements related to ${category}`}
+                    images={categoryImages.map(img => ({
+                      url: img.image_url,
+                      caption: img.caption
+                    }))}
+                  />
+                )
+              })
+            ) : (
+              <div className="text-center py-20 bg-muted/30 rounded-lg">
+                <p className="text-muted-foreground">Gallery is currently empty. Check back soon for updates.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -13,7 +13,7 @@ const navLinks = [
   { href: "/teaching", label: "Teaching" },
   { href: "/student-resources", label: "Resources" },
   { href: "/supervision", label: "Supervision" },
-  { href: "/profiles", label: "Profiles" },
+  { href: "/profiles", label: "Gallery" },
   { href: "/consultancy", label: "Consultancy" },
   { href: "/contact", label: "Contact" },
 ]
@@ -28,12 +28,16 @@ export function Navbar() {
           {/* Logo/Brand */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-lg text-primary hover:text-primary/80 transition-colors"
+            className="flex items-center gap-3 font-bold text-lg text-primary hover:text-primary/80 transition-colors"
           >
-            <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-              JT
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
+              <img
+                src="/images/profile-img.png"
+                alt="John Tsuwa"
+                className="object-cover w-full h-full"
+              />
             </div>
-            <span className="hidden sm:inline">Dr. Tsuwa</span>
+            <span className="hidden sm:inline">John Tsuwa, Ph.D</span>
           </Link>
 
           {/* Desktop Navigation */}

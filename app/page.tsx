@@ -60,6 +60,54 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* Academic Profiles Section */}
+        <section className="py-20 bg-muted/30 border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold mb-12 text-center">Research & Academic Networks</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  platform: "Google Scholar",
+                  description: "Track publications, citations, and h-index.",
+                  url: "https://scholar.google.com/citations?user=vpO27JwAAAAJ&hl=en",
+                },
+                {
+                  platform: "ORCID",
+                  description: "Persistent digital identifier for academic contributions.",
+                  url: "https://orcid.org/0000-0002-7090-5556",
+                },
+                {
+                  platform: "AD Scientific Index",
+                  description: "Academic performance index tracking publications.",
+                  url: "https://www.adscientificindex.com/scientist/scientist-articles/john-tor-tsuwa/4920098",
+                },
+                {
+                  platform: "ResearchGate",
+                  description: "Full research profile with publications and projects.",
+                  url: "https://www.researchgate.net/profile/John-Tsuwa",
+                },
+              ].map((profile, i) => (
+                <Card key={i} className="border-border hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg text-primary">{profile.platform}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-foreground/80">{profile.description}</p>
+                    <a
+                      href={profile.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium text-sm transition-colors"
+                    >
+                      Visit Profile
+                    </a>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

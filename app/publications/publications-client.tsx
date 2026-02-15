@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Download } from "lucide-react"
+import { ExternalLink, Download, BookOpen } from "lucide-react"
 import { PublicationFilters, type FilterState } from "@/components/publication-filters"
 
 interface Publication {
@@ -130,6 +130,28 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
 
                   {filteredPublications.map((pub) => (
                     <Card key={pub.id} className="border-border hover:shadow-lg transition-shadow duration-300">
+                      <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{
+                          __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "ScholarlyArticle",
+                            "headline": pub.title,
+                            "author": pub.authors.split(",").map(author => ({
+                              "@type": "Person",
+                              "name": author.trim()
+                            })),
+                            "datePublished": pub.year.toString(),
+                            "publisher": {
+                              "@type": "Organization",
+                              "name": pub.journal || "Academic Publication"
+                            },
+                            "description": pub.abstract,
+                            "url": pub.url || undefined,
+                            "identifier": pub.doi || undefined
+                          })
+                        }}
+                      />
                       <CardHeader>
                         <div className="space-y-4">
                           {/* Title and Type */}
@@ -177,6 +199,14 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
 
                           {/* Action Buttons */}
                           <div className="flex flex-wrap gap-3 pt-4">
+                            {pub.url && (
+                              <Button asChild variant="default" size="sm" className="gap-2 shadow-sm">
+                                <a href={pub.url} target="_blank" rel="noopener noreferrer">
+                                  <BookOpen size={16} />
+                                  Read Online
+                                </a>
+                              </Button>
+                            )}
                             {pub.doi && (
                               <Button asChild variant="outline" size="sm" className="gap-2 bg-transparent">
                                 <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer">
@@ -187,7 +217,7 @@ export function PublicationsClient({ initialPublications }: PublicationsClientPr
                             )}
                             {pub.url && (
                               <Button asChild variant="outline" size="sm" className="gap-2 bg-transparent">
-                                <a href={pub.url} target="_blank" rel="noopener noreferrer">
+                                <a href={pub.url} target="_blank" rel="noopener noreferrer" download>
                                   <Download size={16} />
                                   Download PDF
                                 </a>

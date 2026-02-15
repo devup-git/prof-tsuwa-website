@@ -5,18 +5,24 @@ import { siteConfig } from "@/config/site"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Toaster } from "@/components/ui/sonner"
+import BirthdayOverlay from "@/components/birthday-overlay"
 
 export const metadata: Metadata = {
   title: "Dr. John Tor Tsuwa | Political Science Scholar & Governance Expert",
   description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url,
+  },
   keywords: [
-    "Political Science",
-    "Peace Studies",
-    "Conflict Resolution",
-    "Governance",
-    "Electoral Studies",
-    "Security Studies",
-    "African Politics",
+    "John Tor Tsuwa",
+    "Dr. John Tor Tsuwa",
+    "Political Scientist Nigeria",
+    "Peace and Conflict Resolution Scholar",
+    "Governance Expert Nigeria",
+    "Security Studies Africa",
+    "Rev. Fr. Moses Orshio Adasu University",
+    "Electoral Studies Nigeria",
+    "Conflict Management Expert",
   ],
   authors: [{ name: "John Tor Tsuwa" }],
   openGraph: {
@@ -54,10 +60,35 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased flex flex-col min-h-screen`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Dr. John Tor Tsuwa",
+              "url": siteConfig.url,
+              "image": siteConfig.ogImage,
+              "jobTitle": "Professor of Political Science",
+              "affiliation": {
+                "@type": "CollegeOrUniversity",
+                "name": "Rev. Fr. Moses Orshio Adasu University, Makurdi"
+              },
+              "description": siteConfig.description,
+              "sameAs": [
+                siteConfig.contact.social.scholar,
+                siteConfig.contact.social.researchgate,
+                siteConfig.contact.social.orcid,
+                siteConfig.contact.social.linkedin
+              ]
+            })
+          }}
+        />
         <Navbar />
         <main className="flex-1">{children}</main>
+        <BirthdayOverlay />
         <Toaster />
         <Analytics />
       </body>
